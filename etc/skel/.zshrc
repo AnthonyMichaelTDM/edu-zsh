@@ -99,6 +99,8 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+####   EDU SETTINGS ####
+(cat $HOME/.cache/wal/sequences &)
 
 ####   ARCOLINUX SETTINGS   ####
 export PAGER='most'
@@ -279,6 +281,7 @@ alias yta-best="yt-dlp --extract-audio --audio-format best "
 alias yta-flac="yt-dlp --extract-audio --audio-format flac "
 alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
 alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+alias tpa-mp3-playlist="yt-dlp --extract-audio --audio-format mp3 --yes-playlist --embed-thumbnail --output '%(title)s.%(ext)s' --add-metadata"
 
 #Recent Installed Packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -319,6 +322,8 @@ alias nhosts="sudo $EDITOR /etc/hosts"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
+alias nvimrc="$EDITOR /etc/vimrc/"
+alias nvimrc-plugins="$EDITOR ~/.vimrc"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
