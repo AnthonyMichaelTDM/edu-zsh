@@ -227,7 +227,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 #grub issue 08/2022
-alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
+alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArcoLinux"
 
 #add new fonts
 alias update-fc='sudo fc-cache -fv'
@@ -248,7 +248,10 @@ alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
 
-#switch between lightdm and sddm
+#switch between displaymanager or bootsystem
+alias toboot="sudo /usr/local/bin/arcolinux-toboot"
+alias togrub="sudo /usr/local/bin/arcolinux-togrub"
+alias torefind="sudo /usr/local/bin/arcolinux-torefind"
 alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
 alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
@@ -266,6 +269,9 @@ alias kpi='killall picom'
 #hardware info --short
 alias hw="hwinfo --short"
 
+#fastfetch --short
+alias ff="fastfetch"
+
 #audio check pulseaudio or pipewire
 alias audio="pactl info | grep 'Server Name'"
 
@@ -276,6 +282,9 @@ alias trizenskip='trizen -S --skipinteg'
 
 #check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
+
+#approximation of how old your hardware is
+alias howold="sudo lshw | grep -B 3 -A 8 BIOS"
 
 #check cpu
 alias cpu="cpuid -i | grep uarch | head -n 1"
@@ -353,6 +362,7 @@ alias nlightdm="sudo $EDITOR /etc/lightdm/lightdm.conf"
 alias npacman="sudo $EDITOR /etc/pacman.conf"
 alias ngrub="sudo $EDITOR /etc/default/grub"
 alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
+alias nmakepkg="sudo $EDITOR /etc/makepkg.conf"
 alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
 alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
 alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
@@ -369,13 +379,28 @@ alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
 alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
+alias nfastfetch="$EDITOR ~/.config/fastfetch/config.jsonc"
 alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
+alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
+alias nenvironment="sudo $EDITOR /etc/environment"
+alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
+alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
+alias nalacritty="nano /home/$USER/.config/alacritty/alacritty.toml"
+
+#removing packages
+alias rvariety="arcolinux-remove-variety"
+alias rkmix="arcolinux-remove-kmix"
+alias rconky="arcolinux-remove-conky"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
 alias lpacman="bat /var/log/pacman.log"
 alias lxorg="bat /var/log/Xorg.0.log"
 alias lxorgo="bat /var/log/Xorg.0.log.old"
+
+#reading logs with sublime-text-4
+alias scal="subl /var/log/Calamares.log"
+alias spac="subl /etc/pacman.conf"
 
 #gpg
 #verify signature for isos
@@ -399,8 +424,8 @@ alias fix-keys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 #alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
 alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
-alias fix-grub="/usr/local/bin/arcolinux-fix-grub"
-alias fixgrub="/usr/local/bin/arcolinux-fix-grub"
+alias fix-grub="sudo /usr/local/bin/arcolinux-fix-grub"
+alias fixgrub="sudo /usr/local/bin/arcolinux-fix-grub"
 
 #maintenance
 alias big="expac -H M '%m\t%n' | sort -h | nl"
@@ -424,6 +449,13 @@ alias bls="betterlockscreen -u /usr/share/backgrounds/arcolinux/"
 #give the list of all installed desktops - xsessions desktops
 alias xd="ls /usr/share/xsessions"
 alias xdw="ls /usr/share/wayland-sessions"
+
+#give a list of the kernels installed
+alias kernel="ls /usr/lib/modules"
+alias kernels="ls /usr/lib/modules"
+
+#am I on grub,systemd-boot or refind
+alias boot="sudo /usr/local/bin/arcolinux-boot"
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
@@ -503,7 +535,8 @@ alias personal='cp -Rf /personal/* ~'
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 # reporting tools - install when not installed
-neofetch
+#fastfetch
+#neofetch
 #screenfetch
 #alsi
 #paleofetch
@@ -517,3 +550,4 @@ neofetch
 #sysinfo-retro
 #cpufetch
 #colorscript random
+#hyfetch
