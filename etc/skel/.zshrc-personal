@@ -1,0 +1,43 @@
+# add apps installed with cargo to my $PATH
+export PATH=$PATH:$HOME/.cargo/bin/
+
+# export some environment variables relating to rootless docker
+#export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+# source the google cloud cli
+#source /etc/profile.d/google-cloud-cli.sh
+
+# git ssh setup
+alias git-ssh='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/github'
+alias gitssh='git-ssh'
+
+# command to convert a powerpoint into a pdf using libreoffice
+ppt2pdf()
+{
+  local help_text="Usage: ppt2pdf file1.ppt file2.pptx ..."
+  # for every ppt file passed in, convert it to a pdf
+  # and save it in the same directory as the ppt file
+  if [ $# -eq 0 ]; then
+    echo $help_text
+    return 1
+  fi
+  case $1 in
+    -h|--help)
+      echo $help_text
+      return 0
+      ;;
+  esac
+
+  for ppt_file in $@; do
+    if [ ! -f $ppt_file ]; then
+      echo "file not found: $ppt_file"
+      return 1
+    elif [ ${ppt_file##*.} != "ppt" ] && [ ${ppt_file##*.} != "pptx" ]; then
+      echo "file is not a powerpoint file: $ppt_file"
+      return 1
+    else
+      echo "converting $ppt_file to pdf"
+      soffice --headless --convert-to pdf --outdir "$(dirname $ppt_file)" $ppt_file
+    fi
+  done
+}
