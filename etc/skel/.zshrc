@@ -257,6 +257,7 @@ alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable s
 alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
 alias togdm="sudo pacman -S gdm --noconfirm --needed ; sudo systemctl enable gdm.service -f ; echo 'Gdm is active - reboot now'"
 alias tolxdm="sudo pacman -S lxdm --noconfirm --needed ; sudo systemctl enable lxdm.service -f ; echo 'Lxdm is active - reboot now'"
+alias toemptty="sudo pacman -S emptty --noconfirm --needed ; sudo systemctl enable emptty.service -f ; echo 'Emptty is active - reboot now'"
 
 # kill commands
 # quickly kill conkies
@@ -266,21 +267,21 @@ alias kp='killall polybar'
 # quickly kill picom
 alias kpi='killall picom'
 
-#hardware info --short
+# hardware info --short
 alias hw="hwinfo --short"
 
-#fastfetch --short
+# fastfetch --short
 alias ff="fastfetch"
 
-#audio check pulseaudio or pipewire
+# audio check pulseaudio or pipewire
 alias audio="pactl info | grep 'Server Name'"
 
-#skip integrity check
+# skip integrity check
 alias paruskip='paru -S --mflags --skipinteg'
 alias yayskip='yay -S --mflags --skipinteg'
 alias trizenskip='trizen -S --skipinteg'
 
-#check vulnerabilities microcode
+# check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
 #approximation of how old your hardware is
@@ -348,6 +349,8 @@ alias listaur="sudo pacman -Qqem"
 
 #clear
 alias clean="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
+alias cls="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
+
 
 #search content with ripgrep
 alias rg="rg --sort path"
@@ -368,6 +371,7 @@ alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
 alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
 alias nsddm="sudo $EDITOR /etc/sddm.conf"
 alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
+alias nsddmd="sudo $EDITOR /usr/lib/sddm/sddm.conf.d/default.conf"
 alias nfstab="sudo $EDITOR /etc/fstab"
 alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
 alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
@@ -386,6 +390,8 @@ alias nenvironment="sudo $EDITOR /etc/environment"
 alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
 alias nalacritty="nano /home/$USER/.config/alacritty/alacritty.toml"
+alias nemptty="sudo $EDITOR /etc/emptty/conf"
+alias nkitty="$EDITOR ~/.config/kitty/kitty.conf"
 
 #removing packages
 alias rvariety="arcolinux-remove-variety"
