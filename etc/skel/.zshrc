@@ -99,9 +99,6 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-####   EDU SETTINGS ####
-(cat $HOME/.cache/wal/sequences &)
-
 ####   ARCOLINUX SETTINGS   ####
 export PAGER='most'
 
@@ -121,8 +118,8 @@ export HISTCONTROL=ignoreboth:erasedups
 
 # Make nano the default editor
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='nvim'
+export VISUAL='nivm'
 
 #PS1='[\u@\h \W]\$ '
 
@@ -133,6 +130,9 @@ fi
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
+
+####   EDU SETTINGS ####
+(cat $HOME/.cache/wal/sequences &)
 
 ### ALIASES ###
 
