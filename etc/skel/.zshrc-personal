@@ -4,7 +4,7 @@ export PATH=$PATH:$HOME/.cargo/bin/
 # if running in an ssh session, try to attach to or start a tmux session
 if [[ -n "$SSH_TTY" ]] && [[ -z "$TMUX" ]]; then
   tmux attach || tmux new-session -s remote-ssh-session
-if
+fi
 
 # export some environment variables relating to rootless docker
 #export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
