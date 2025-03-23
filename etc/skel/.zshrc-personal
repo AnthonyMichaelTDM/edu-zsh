@@ -1,9 +1,15 @@
 # add apps installed with cargo to my $PATH
 export PATH=$PATH:$HOME/.cargo/bin/
 
-# if running in an ssh session, try to attach to or start a tmux session
-if [[ -n "$SSH_TTY" ]] && [[ -z "$TMUX" ]]; then
-  tmux attach || tmux new-session -s remote-ssh-session
+# if running in an ssh session, try to attach to or start a zellij or tmux session
+if [[ -n "$SSH_TTY" ]]; then
+  if [[ -n "$(command -v zellij)" ]]; then
+    if [[ -z "$ZELLIJ" ]]; then
+      zellij attach || zellij -s remote-ssh-session
+    fi
+  elif [[ -z "$TMUX" ]]; then
+    tmux attach || tmux new-session -s remote-ssh-session
+  fi
 fi
 
 # export some environment variables relating to rootless docker
