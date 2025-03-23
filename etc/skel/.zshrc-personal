@@ -5,7 +5,7 @@ export PATH=$PATH:$HOME/.cargo/bin/
 if [[ -n "$SSH_TTY" ]]; then
   if [[ -n "$(command -v zellij)" ]]; then
     if [[ -z "$ZELLIJ" ]]; then
-      zellij attach || zellij -s remote-ssh-session
+      zellij attach -c remote-ssh-session
     fi
   elif [[ -z "$TMUX" ]]; then
     tmux attach || tmux new-session -s remote-ssh-session
