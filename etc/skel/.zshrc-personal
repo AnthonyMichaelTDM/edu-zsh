@@ -19,7 +19,12 @@ fi
 #source /etc/profile.d/google-cloud-cli.sh
 
 # git ssh setup
-alias git-ssh='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/github'
+export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.sock
+if [[ ! -e "$SSH_AUTH_SOCK" ]]; then
+  # start an ssh-agent if one is not already running
+  eval $(ssh-agent -s -a "$SSH_AUTH_SOCK" -t 30min)
+fi
+alias git-ssh='ssh-add ~/.ssh/github'
 alias gitssh='git-ssh'
 
 # command to convert a powerpoint into a pdf using libreoffice
