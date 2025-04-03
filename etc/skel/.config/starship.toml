@@ -54,11 +54,11 @@ disabled = true
 format = "via [$symbol]($style)"
 
 [buf]
-format = "via [$symbol]($style))"
+format = "via [$symbol]($style)"
 symbol = " "
 
 [c]
-format = "via [$symbol(-$name)]($style))"
+format = "via [$symbol(-$name)]($style)"
 symbol = " "
 
 [cmake]
