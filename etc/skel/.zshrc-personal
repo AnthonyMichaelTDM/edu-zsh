@@ -22,7 +22,7 @@ fi
 export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.sock
 if [[ ! -e "$SSH_AUTH_SOCK" ]]; then
   # start an ssh-agent if one is not already running
-  eval $(ssh-agent -s -a "$SSH_AUTH_SOCK" -t 30m)
+  eval $(ssh-agent -s -a "$SSH_AUTH_SOCK" -t 3h)
 fi
 alias git-ssh='ssh-add ~/.ssh/github'
 alias gitssh='git-ssh'
