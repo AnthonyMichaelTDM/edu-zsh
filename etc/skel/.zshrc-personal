@@ -1,6 +1,13 @@
 # add apps installed with cargo to my $PATH
 export PATH=$PATH:$HOME/.cargo/bin/
 
+# generate completions for the mecomp binaries
+source <(COMPLETE=zsh mecomp-cli)
+source <(COMPLETE=zsh mecomp-daemon)
+source <(COMPLETE=zsh mecomp-mpris)
+source <(COMPLETE=zsh mecomp-tui)
+alias mecomp="zellij -l mecomp"
+
 # if running in an ssh session, try to attach to or start a zellij or tmux session
 if [[ -n "$SSH_TTY" ]]; then
   if [[ -n "$(command -v zellij)" ]]; then
