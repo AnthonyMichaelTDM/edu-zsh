@@ -100,7 +100,11 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 ####   ARCOLINUX SETTINGS   ####
-export PAGER='most'
+if [ -x "$(command -v nvim)" ]; then
+  export PAGER='nvim +Man!'
+else
+  export PAGER='most'
+fi
 
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
