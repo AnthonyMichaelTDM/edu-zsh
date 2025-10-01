@@ -30,7 +30,12 @@ export SSH_AUTH_SOCK=${HOME}/.ssh/ssh-agent.sock
 if [[ ! -e "$SSH_AUTH_SOCK" ]]; then
   # start an ssh-agent if one is not already running
   eval $(ssh-agent -s -a "$SSH_AUTH_SOCK" -t 3h)
+elif [[ "$(pgrep -c ssh-agent)" -eq 0 ]]; then
+  # if the socket exists, but no agent is running, delete the socket and try again
+  rm $SSH_AUTH_SOCK
+  eval $(ssh-agent -s -a "$SSH_AUTH_SOCK" -t 3h)
 fi
+
 alias git-ssh='ssh-add ~/.ssh/github'
 alias gitssh='git-ssh'
 
