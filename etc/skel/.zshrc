@@ -26,7 +26,7 @@ eval "$(starship init zsh)"
 
 ####   OTHER ZSH CONFIGURATION   ####
 
-HISTFILE=~/.zsh-history
+HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=10000
 setopt GLOB_DOTS
