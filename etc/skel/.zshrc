@@ -2,6 +2,11 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+####   PLUGIN SETTINGS   ####
+
 # Path to your oh-my-zsh installation.
 #installation via script from github
 #export ZSH="/home/$USER/.oh-my-zsh"
@@ -121,9 +126,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 # export HISTCONTROL=ignoreboth:erasedups
 
