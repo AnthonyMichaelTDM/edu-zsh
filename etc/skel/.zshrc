@@ -5,25 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-####   PLUGIN SETTINGS   ####
-
-# configure completions
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-autoload -Uz compinit && compinit
-
-# Set up fzf key bindings and fuzzy completion
-if [ -x "$(command -v fzf)" ]; then
-  source <(fzf --zsh)
-fi
-
-# enable the syntax highligher plugin
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-# Load the starship prompt
-eval "$(starship init zsh)"
-
 ####   OTHER ZSH CONFIGURATION   ####
 
 HISTFILE=~/.zsh_history
@@ -42,6 +23,25 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 
 # export HISTCONTROL=ignoreboth:erasedups
+
+####   PLUGIN SETTINGS   ####
+
+# configure completions
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
+# Set up fzf key bindings and fuzzy completion
+if [ -x "$(command -v fzf)" ]; then
+  source <(fzf --zsh)
+fi
+
+# enable the syntax highligher plugin
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Load the starship prompt
+eval "$(starship init zsh)"
 
 ####   USER CONFIGURATION   ####
 
