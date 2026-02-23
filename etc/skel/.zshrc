@@ -54,11 +54,17 @@ fi
 ## override up/down keys
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
-bindkey '^[[A' up-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+if [[ -n "${terminfo[kcuu1]}" ]]; then
+  bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
 
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+if [[ -n "${terminfo[kcud1]}" ]]; then
+  bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
 
 ## home and end keys
 if [[ -n "${terminfo[khome]}" ]]; then
@@ -78,6 +84,8 @@ bindkey '^?' backward-delete-char
 bindkey '^[[3~' delete-char
 ### ctrl+delete delete whole word
 bindkey '^[[3;5~' kill-word
+### ctrl+backspace also deletes whole word
+bindkey '^H' backward-kill-word
 
 ## ctrl + left/right arrow keys
 bindkey '^[[1;5C' forward-word
