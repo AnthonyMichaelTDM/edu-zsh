@@ -24,6 +24,80 @@ setopt HIST_FIND_NO_DUPS
 
 # export HISTCONTROL=ignoreboth:erasedups
 
+####   Additional Keybinds ####
+
+# these are some of the more useful keybinds we used to get with oh-my-zsh
+
+# Make sure that the terminal is in application mode when zle is active,
+# since only then are values from $terminfo valid
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+
+  function zle-line-init() {
+    echoti smkx
+  }
+  function zle-line-finish() {
+    echoti rmkx
+  }
+
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
+## PageUp/PageDown go up/down a line of history
+if [[ -n "${terminfo[kpp]}" ]]; then
+  bindkey "${terminfo[kpp]}" up-line-or-history
+fi
+if [[ -n "${terminfo[knp]}" ]]; then
+  bindkey "${terminfo[knp]}" down-line-or-history
+fi
+
+## override up/down keys
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+## home and end keys
+if [[ -n "${terminfo[khome]}" ]]; then
+  bindkey "${terminfo[khome]}" beginning-of-line
+fi
+if [[ -n "${terminfo[kend]}" ]]; then
+  bindkey "${terminfo[kend]}" end-of-line
+fi
+
+## [Shift-Tab] - move through the completion menu backwards
+if [[ -n "${terminfo[kcbt]}" ]]; then
+  bindkey "${terminfo[kcbt]}" reverse-menu-complete
+fi
+
+## make the backspace/delete keys work correctly
+bindkey '^?' backward-delete-char
+bindkey '^[[3~' delete-char
+### ctrl+delete delete whole word
+bindkey '^[[3;5~' kill-word
+
+## ctrl + left/right arrow keys
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+
+## Ctrl+x, Ctrl+e: open current cmdline in a text editor
+### $VISUAL (or $EDITOR / 'vi' if not set)
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
+## Esc+Key macros
+bindkey '\ew' kill-region # [Esc-w] - kill from the cursor to the mark (everything up to the cursor)
+bindkey -s '\el' '^q ls\n'   # [Esc-l] - run command: ls
+## file rename magic ([Esc-m] copy the previous word in the cmdline to the cursor position)
+bindkey '^[m' copy-prev-shell-word
+
+## [Space] Don't do history expansion
+bindkey ' ' magic-space
+
 ####   PLUGIN SETTINGS   ####
 
 # configure completions
