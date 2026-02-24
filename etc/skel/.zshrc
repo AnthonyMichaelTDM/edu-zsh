@@ -7,6 +7,7 @@
 
 ####   OTHER ZSH CONFIGURATION   ####
 
+## command history
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=10000
@@ -21,6 +22,26 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
+setopt EXTENDED_HISTORY
+setopt HIST_VERIFY
+setopt HIST_EXPIRE_DUPS_FIRST
+
+## completions
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+
+## IO
+setopt NO_FLOW_CONTROL
+setopt INTERACTIVE_COMMENTS
+
+## auto-cd and pushd options
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
+## job control
+setopt LONG_LIST_JOBS
 
 # export HISTCONTROL=ignoreboth:erasedups
 
@@ -42,6 +63,9 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   zle -N zle-line-init
   zle -N zle-line-finish
 fi
+
+## Emacs keybindings
+bindkey -e
 
 ## PageUp/PageDown go up/down a line of history
 if [[ -n "${terminfo[kpp]}" ]]; then
@@ -108,9 +132,14 @@ bindkey ' ' magic-space
 
 ####   PLUGIN SETTINGS   ####
 
-# configure completions
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+## configure completions
 autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+# Color file completions
+zstyle ':completion:*' list-colors ''
+# # Group completions by type
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' format '%B%d%b'
 
 # Set up fzf key bindings and fuzzy completion
 if [ -x "$(command -v fzf)" ]; then
